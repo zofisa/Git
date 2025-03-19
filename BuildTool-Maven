@@ -1,0 +1,89 @@
+Maven:
+=================
+Maven is a build tool that will allow the developer to:
+
+with a structure to write the java code 
+to write java unit test cases 
+and then build it 
+it generates reports
+
+Maven by heart is a plugin based tool.
+Everything in maven is done using plugin 
+Plugin -> an extension or a small tool which enhance the architecture of the main tool
+
+There are various plugin in maven but a devops engg we need to know 5 main plugins 
+When the maven command is executed, maven will create a folder called as TARGET folder
+in this folder , maven will store the output files - compiled files, test files, artifacts, reprots
+
+Task to be done              Plugin Name            Command/GOAL          output
+=======================================================================================
+1. Compile the code          COMPILER               mvn compile           .class files
+2. Unit Test the code        SUREFIRE               mvn test              surefire test reports
+3. Package the Code          PACKAGE                mvn package           artifact - .war,.jar
+4. deleted target folder      CLEAN                  mvn clean  
+5. push the artifact to      DEPLOY                 mvn deploy 
+   artifactory
+6. Install dependencies      install                mvn install 
+
+Demo1: Install JAVA 17 and Maven on the Linux server 
+
+Update the apt repo of Ubuntu machine before we install any package
+
+# apt update 
+
+Install Java 17 on ubuntu machine 
+
+# apt install openjdk-17-jdk openjdk-17-jre 
+
+# java --version 
+
+Install Maven on ubuntu machine 
+
+# apt install maven 
+
+# mvn --version
+
+
+DEMO 2: Creating a Maven project as a developer to understand maven project structure 
+
+Install IDE - eclipse, Intellj, VS code
+
+1. Developer will create a Maven project in which he will write java code 
+
+2. POM.xml file --> project object module
+If no pom file in project-- you cannot build 
+
+POM file consist of:
+
+1. Dependencies : names of softwares and its version that developer will use to write the code and test cases 
+
+As develoepr will write these dependencies, maven will automatically download them in the project 
+
+2. Repositories:
+Location from there the dependencies will be downloaded 
+3 types :
+local, remote and central 
+Local: the repository is on developer machine 
+remote: the repo is on remote server where maven will connect and download the depndency 
+central : maven central repo over the internet
+
+3. Plugins: ******
+Here the developer will mention the names of the plugins that you will use to build  the code 
+
+=================
+Project structure :
+
+src/main/java --> developer will write java code 
+
+src/test/java ----> developer will write test code 
+
+==================
+Demo 3: Run all the Commands
+
+https://github.com/Sonal0409/MavenBuild-Docker-GitHubActions.git
+
+# git clone https://github.com/Sonal0409/MavenBuild-Docker-GitHubActions.git
+
+# cd MavenBuild-Docker-GitHubActions
+
+# mvn clean install package
