@@ -1,0 +1,878 @@
+
+Hello Everyone!
+
+Trainer: Sonal Mittal
+
+Agenda: Day 1 - 20 Feb 2024 - Version control with Git and GitHub 
+===============================
+
+> Introduction to Version Control 
+> Benefits of Version Control 
+> Types of Version Control Systems 
+> Git and its features
+> Git workflow and architecture
+> Execute git commands on Local Repository
+
+
+
+
+What is Version Control?
+================================
+Version: Making changes and tracking(who did the change and when )these changes on a file or set of files
+
+Control: How do we track the changes ? where do we track the changes ?
+> Use a tool that will automatically track every change your do to a file or set of files .
+> Version control tool will provide you a repository to contribute together 
+> Multiple team members to work together on same unit of information (same file)
+
+
+
+If we have NO Version Control :
+
+1. We will have to rework on the files that we have not saved or changes that were not saved earlier.
+2. We will not have a common folder/location where all the team members can contribute
+3. We will not have a tool or a process to share data between team members
+
+
+Benefits of Version Control:
+===================================
+
+> Track Changes 
+> Back Up of our files and code 
+> Collaboration
+> roll back to previous changes 
+> Complete snapshot of the project 
+
+Types of Version Control System:
+=============================================
+> Local Version Control  System:
+=================================
+RCS : revision control system 
+
+Disadvantage: Local to the developer, others cannot access the files 
+If machine crashes we will lose the actual files as well as the versioned files.
+
+> Central version control Systems:
+=====================================
+SVN, perforce, TFS , googledrive
+
+
+Disadvantage: 
+> if no internet, we cannot access the versioned files 
+> if central crashes.. all version are deleted.
+
+> Distributed Version Control System 
+=======================================
+Local + Central repository
+
+GIT:
+=========================================
+Git is an Open source tool 
+It is available for free 
+You can download it on windows mac or linux 
+It is always installed on the local machine of the developer
+It is Command line tool - provides simple commands to version control files in local machine
+Git also has a user interface - provided only for windows OS
+Git is also integrated with code editors
+Git is used to create local repository 
+Git is used to version control files and maintain them to local repo 
+
+=============================================
+
+Demo: 
+
+# sudo su -
+
+Step 1: Create a working directory 
+
+# mkdir myproject && cd myproject
+
+# touch index1.html index2.html
+
+Step 2: Create a local repository  - Initialized empty Git repository
+
+# git init 
+
+# ls -al 
+
+.git : name of local repository 
+do not change the name -> always it will be same.
+
+Step 3: Setup git configuration for git logging 
+
+# git config --global user.name sonal04
+
+# git config --global user.email admin@gmail.com
+
+These configuration get stored in the below file 
+
+# cat ~/.gitconfig
+
+[user]
+        email = admin@gmail.com
+        name = sonal04
+
+These configuration are done only 1 time .
+
+Step 4: check the status of working directory 
+
+# git status 
+
+Step 5: Add the files to staging area 
+
+# git add index1.html 
+
+# git status 
+
+Step 6: Commit the files into Local repo 
+
+# git commit -m "added file index1.html" 
+
+-m - give any message in double quotes
+
+Step 7: Git log command to give history of commits performed
+
+#  git log
+
+Step 8: 
+Create a file and add it to staging area .
+Can we bring it back to unstaged area(red) - yes you can 
+using restore command 
+
+# touch file.php
+
+# git add .
+
+# git status
+
+# git restore --staged file.php
+
+
+Day 2
+Create a new file --> commit on it
+
+touch resetdemo
+git add .
+git commit -m "added a new file resetdemo"
+
+Make some small modification on the file --> commit on it
+Make some small modification on the file --> commit on it
+Make some small modification on the file --> commit on it
+Make some small modification on the file --> commit on it
+Make some small modification on the file --> commit on it
+
+Which mean I will have a very length git commit history
+
+Every small change I have committed it
+
+We always want a clean and crisp commit history
+
+Git says, you can RESET your commit history
+
+   that means:
+     > we can Change the HEAD of the log
+     > we can delete commit ids
+     > we can move the changes from LR to Staging area
+     > we can move the changes from LR to Working area
+     > we can also permanently delete commits and changes in 
+LR and working directory
+
+the command is : git reset <commit id>
+
+What is it that we have to reset, > we want to reset the HEAD to the given <commit id>
+
+#  git reset d573778
+
+So what about the commits before the given the <commit id> --> they will get deleted
+
+So what about the changes we did as part of those commits?
+
+
+
+
+
+--hard
+=============================
+Observation: 
+ > In the git log, the commit history is reset -> all the commits which are above the given <commitID> get deleted
+ > Now the HEAD is the  <Commitid> given in the command
+ > All the changes of the deleted commits will also be permanently deleted
+
+
+
+# git log --oneline
+
+Select the commit id which is at the bottom of your log.
+
+
+
+# git reset --hard <commit id>
+
+Example : git reset --hard 04f432e
+
+
+
+
+
+Soft:
+=======================
+
+# echo "add content" >> index1.html
+
+# git add .
+
+# git commit -m "done modification1"
+
+
+# echo "add content again " >> index1.html
+
+
+# git add .
+
+# git commit -m "done modification2"
+
+# echo "add content again 123 " >> index1.html
+
+
+# git add .
+
+# git commit -m "done modification3" 
+
+
+# git log --oneline
+
+
+# git reset --soft <commitID>
+
+
+
+
+
+--soft:
+
+    Observation: 
+     > In the git log, the commit history is reset -> all the commits which are above the given <commitID> get deleted
+     > Now the HEAD is the  <Commitid> given in the command
+     > All the changes of the deleted commits will be back to the staging area.
+
+
+
+# git commit -m "all modifications together"
+
+
+# git reset --mixed <commit id>
+
+--mixed
+
+Observation: 
+ > In the git log, the commit history is reset -> all the commits which are above the given <commitID> get deleted
+ > Now the HEAD is the  <Commitid> given in the command
+ > All the changes of the deleted commits will be back to working directory
+
+
+# git add .
+
+# git commit -m "all modifications together"
+
+# git status
+
+Branching and Merging
+=======================
+
+
+
+Command to see how many branches do we have in out local repo:
+
+$ git branch
+
+
+$ git status ⇒ working tree should be clean
+
+
+Command to create a branch with name as feature1
+
+$ git branch feature1
+
+Command to switch to branch with name feature1
+
+$ git checkout feature1
+
+Switched to branch feature1
+
+Create a new file on the branch feature1
+
+$ touch login
+
+$ git status
+
+Untracked file
+
+
+$ git add login
+$ git commit -m “done on branch”
+$ git log --oneline
+
+
+How to check which files on the given branch:
+
+#  git ls-tree feature1
+
+OR
+
+# git ls-tree master
+
+# git ls-tree --name-only master
+
+
+
+
+
+
+
+Merging the feature1 branch to master branch
+========================
+
+By merging we mean 
+
+The source branch → login has commits that will be merged to destination branch master
+
+Always Switch to the destination branch where we have to merge
+
+$ git checkout master
+
+$ git merge feature1 master
+
+$ git log --oneline
+
+All commits of login are present in master also, login file is also there on master branch
+
+=====================================
+Delete a Branch : 
+
+# git branch -d feature1
+
+
+A single command that will create a branch and also switch to the branch
+==========================================
+# git checkout -b feature2
+
+
+
+# touch file2
+
+# git add .
+
+# git commit -m "new commint on feature2"
+
+# git checkout master
+
+# git merge feature2 master
+
+Rename a branch:
+
+# git checkout master
+
+# git branch -m <oldBranchname> <newbranchname>
+
+# git branch -m feature2 dev
+# git branch
+
+=============================
+
+usecase1 : 
+
+Create a new branch --> add some new changes --> do not commit on the brach 
+Changes are staged on the feature branch
+
+Switch to master branch --> changes on the feature will now reflect on master branch
+
+
+
+# git checkout -b branch1
+
+# touch bfile1
+
+# touch bfile2
+
+# git add .
+
+# git status
+
+
+No commit on the branch → switch to master branch
+
+# git status 
+
+# git commit -m "done on master"
+
+Switch to branch1 and merge from master
+
+# git merge master branch1
+
+======================================
+
+Assignment - Cherry Pick
+======================================
+
+UseCase2: 
+
+Create a new branch --> add some new changes --> do 2 or 3 commit on the branch 
+
+Switch to master --> merge only 1 commit changes on the master --> cherry pick
+
+# git checkout -b branch01
+
+# touch file11
+
+# git add .
+
+# git commit -m "added file11"
+
+# touch file12
+
+# git add .
+
+# git commit -m "added file12"
+
+Now switch to master branch
+
+# git checkout master
+
+
+# git cherry-pick <commiID>
+
+=================================
+Rebase:
+=================================
+
+# git branch -D <branchName>
+
+Delete all the branches except master
+
+# git branch
+
+
+# git log --oneline
+
+Delete all commits except last 2 commits
+
+# git reset --hard <commitID>
+
+Create  a new Branch
+
+# git branch feature1
+
+# git branch
+
+Now create a new commit on master
+# touch filenew1
+# git add .
+
+# git commit -m "done on Master branch"
+
+# touch filenew2
+# git add .
+
+# git commit -m "done on Master branch"
+
+Switch to feature and create new commits
+
+# git checkout feature1
+
+# touch file01
+# git add .
+
+# git commit -m "done on Master branch"
+
+# touch file02
+# git add .
+
+# git commit -m "done on Master branch"
+
+# git log --oneline
+
+So you should be switched to feature branch
+
+# git rebase master
+
+# gt log --oneline
+
+========================================
+
+In case the lab is reset, pls execute below steps:
+
+# sudo su -
+
+# mkdir myproject && cd myproject
+
+# git init
+
+# git config --global user.name admin
+
+#  git config --global user.email admin@gmail.com
+
+# touch index1.html index2.html
+
+# git add .
+
+# git commit -m "add files"
+
+# git log --oneline
+
+
+Check the files in the local repo
+
+# git ls-files
+
+===========================
+Conflicts and resolving Merge conflicts
+=========================================
+
+# git checkout master
+
+# git branch login_branch
+
+# git checkout login-branch
+
+# echo “this file is for login code” >> login
+
+# ls
+
+# git add .
+
+# git commit -m " file on branch"
+
+#  git checkout master
+
+ # echo “this file is for login code on master branch” >> login
+
+# echo “created by sonal” >> login
+
+# git add .
+
+# git commit -m " file on master"
+
+# git merge login_branch master
+
+We will now get merge conflicts.
+
+Open the file 
+
+# vim login
+
+
+Press i
+Merge the changes as you required
+
+Save the file (:wq!)
+
+
+# git add .
+
+# git commit -m "done resolving conflicts" 
+
+# git status
+
+========================
+GIT stash:
+=====================================
+
+If you have some incomplete changes in working directory
+
+
+
+Incomplete Changes: Files with some modifications in it, These changes are still in Working directory and not staged or committed
+
+I don't wish to discard the changes -> because we cannot recover them back.
+
+I don’t wish to commit them → 
+
+I wish to temporarily store  these changes in a different location other than working directory
+
+git stash works on modified files or files changes that are staged
+If the file is untracked
+git stash will stash the changes from Working directory
+we have to stage changes and stash it
+
+
+We can  execute a git stash command for this.
+
+# git checkout master
+
+# git status
+
+# git ls-files
+
+Pick up any file other than .gitignore
+
+
+# vim index1.html
+
+Press i
+
+
+Insert some content
+
+
+Save the file 
+
+Press ESC key
+:wq!
+
+
+OR
+
+# echo "hello All"  >> index1.html
+
+
+# git status
+
+
+# git stash 
+
+With this all the modifications that are in working directory will be stashed
+
+How can we see out stashed changes
+
+# git stash list
+
+
+
+Here:
+stash@{0} : it is the temporary location where the stash is stored
+
+
+What is there in the stash stash@{0}
+
+ # git checkout master
+
+# git show stash@{0}
+
+Get the changes back to the working directory:
+=====================================
+
+#  git stash pop stash@{0}
+
+Changes will be back to working directory, stash will be dropped
+
+# git stash list
+
+No stash will be there
+
+
+======================================
+Extra Use cases:
+============================
+usecase 1: 
+
+If we have many modifications in the working directory on different files 
+
+We wish to stash only 1 file --> how to do that?
+
+# git stash push <filename>
+
+Usecase2: can we stash multiple files in single stash location --> yes 
+
+shradha kasar . 20:24
+but #git stash -p will stash all the files from working dir right? => git stash --all
+
+git stash -p --> only takes modification that are in unstaged area 
+
+usecase 3: stash modifications and untracked file --> git stash -u
+
+
+UseCase4 :
+=====================
+Modify a file --> stash the changes 
+
+Take the file again --> make new changes to it
+
+Pop the stash --> let us see what happens?
+
+You will get below error:
+
+error: Your local changes to the following files would be overwritten by merge:
+	file-stash
+Please commit your changes or stash them before you merge.
+Aborting
+On branch master
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	modified:   file-stash
+
+no changes added to commit (use "git add" and/or "git commit -a")
+The stash entry is kept in case you need it again.
+=======================================
+
+
+
+Give token for authentication.
+
+Working on Remote repository:
+================================
+
+
+
+
+
+Create a repository:
+
+
+> click on New button to create a remote repo
+> Name to the repository
+> select public repo
+> click on Create repository
+
+
+
+
+
+
+
+
+Connect Local repo to remote repo
+
+Go to git and execute this command
+
+  $ git remote add origin <your remote repo Path>
+
+Example like this:
+…
+ git remote add origin https://github.com/Sonal0409/myproject27June_sonal.git
+…
+
+Execute the command to check local and remote repo is set:
+
+  $ git remote -v
+
+
+Create a Personal Access token on GITHUB to push your changes
+
+Personal access tokens (classic) function like ordinary OAuth access tokens. They can be used instead of a password for Git over HTTPS
+
+GO to this link:  https://github.com/settings/tokens
+
+
+
+Push Changes to GITHUB repo
+
+# git push origin master
+
+Here origin means variable storing path of remote repo 
+
+
+It will now ask to enter username
+
+Username for 'https://github.com':
+
+Here enter the token and press enter key
+
+Again it will ask for password
+
+Password for 'https://ghp_mJ92gregYqNggrggd8AY1NxkWpYigter345Q6PHAM7VxuLg26F4wB@github.com':
+
+JUST PRESS ENTER KEY, do not enter anything for password
+
+It will send the files and commits to remote.
+
+=========================================
+   PULL Workflow command
+========================================
+Create a new file on the remote repository master branch
+
+Now go to lab machine and execute below command
+
+  	# git pull origin master
+
+Pull command will fetch new files and changes and merge them with local repo and working directory
+
+===================================
+Fetch from github (Do not perform right now)
+===================================
+
+On remote if we have many files and changes
+we can just fetch them all
+and merge only the required file
+using fetch command
+if you will do pull operation --> ftech all the changes merge the changes to LR
+
+# git fetch origin master
+
+Merge a specific file
+
+# git checkout origin/master <file_name>
+
+
+============================================
+
+Forking on Github
+=============================================
+
+Copying the github repo of a user into your own github account
+
+Forking operation will allow you to freely experiment changes on repo copied from other
+
+
+Demo: Collaboration with other repo on github
+====================================
+
+Step 1:
+
+Take a parent repository and make copy of it in your github account
+
+> You should be logged into github
+
+> In the browser of your machine open this repository:
+https://github.com/Sonal0409/myproject27June_sonal.git
+
+> Click on the fork button
+
+
+
+
+
+Step 2: 
+Make some changes by creating a file in your copied repo on your github account
+
+
+
+
+
+
+
+Step 3: Raise a request with parent repo to merge you files and changes
+
+We will contribute and raise Pull requests in github
+
+
+
+
+
+
+
+Click on create pull req
+
+
+
+Sync the 2 repositories
+=====================
+If parent repo is having changes/files thata r enot in your copied github repo
+Then you can click on Sync button → update branch button and merge the changes between 2 repo
+
+
+
+Cloning
+=========================
+
+It is a command to be executed on git terminal
+
+When we execute git clone command
+
+We will be able to to copy a remote repo to our local terminal
+
+# sudo su -
+
+# git clone <repoName>
+
+# git clone https://github.com/Sonal0409/myproject27June_sonal.git
